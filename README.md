@@ -1,7 +1,7 @@
-# Project Template
+# Singleton Pattern Example
 
-This is a Java Maven Project Template
 
+This project includes some example implementations of Singleton Pattern. 
 
 # How to compile the project
 
