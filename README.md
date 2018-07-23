@@ -2,6 +2,8 @@
 
 This is a Java Maven Project Template
 
+![](https://travis-ci.org/kiat/MET-CS665.svg?branch=master)
+
 
 # How to compile the project
 
