@@ -85,3 +85,10 @@ mvn checkstyle:checkstyle
 ```bash
 target/site/checkstyle.html
 ```
+
+
+#  coveralls:report
+
+mvn -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID   -DrepoToken=yourcoverallsprojectrepositorytoken  cobertura:cobertura coveralls:report
+
+
