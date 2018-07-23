@@ -2,7 +2,7 @@
 
 This is a Java Maven Project Template
 
-[![Build Status](https://travis-ci.org/kiat/JavaProjectTemplate.svg?branch=master)](https://travis-ci.org/kiat/JavaProjectTemplate)
+![](https://travis-ci.org/kiat/MET-CS665.svg?branch=master)
 
 
 # How to compile the project
