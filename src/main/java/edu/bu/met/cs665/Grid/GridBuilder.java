@@ -8,70 +8,66 @@ import java.util.Stack;
 
 public class GridBuilder {
 
-  private Grid baseGrid;
+
+  private final int width;
+  private final int height;
 
   public GridBuilder(int width, int height){
-    baseGrid = new Grid(width, height);
+    this.width = width;
+    this.height =  height;
   }
 
   public Grid buildBasicGrid(){
-    try {
-      return (Grid) baseGrid.clone();
-    } catch (CloneNotSupportedException e) {
-      e.printStackTrace();
-    }
-    return null;
+    return new Grid(width, height);
   }
   
   public Grid buildGridWithRandomShips(List<Ship> ships){
-    try {
-      Grid grid = (Grid) baseGrid.clone();
-      for(Ship ship: ships){
-        int length = ship.getLength();
+    Grid grid = new Grid(width, height);
+    for(Ship ship: ships){
+      int length = ship.getLength();
 
-        Stack<Point> location = placeOnGrid(length);
-        location.stream().forEach(point -> grid.setCellType(point, new ShipCell()));
-      }
-    } catch (CloneNotSupportedException e) {
-      e.printStackTrace();
+      Stack<Point> location = findLocation(grid, length);
+      ship.setLocation(location);
+      grid.addShip(ship, location);
     }
-    return null;
+
+    return grid;
   }
 
-  private Stack<Point> placeOnGrid(int length) {
+  private Stack<Point> findLocation(Grid grid, int length) {
     Stack<Point> points = new Stack<>();
     Random random = new Random();
 
     while(points.size() != length){
       // pick a random point
-      int x = random.nextInt(baseGrid.getWidth());
-      int y = random.nextInt(baseGrid.getHeight());
+      int x = random.nextInt(grid.getWidth());
+      int y = random.nextInt(grid.getHeight());
 
       // pick a random orientation
       boolean vertical = random.nextBoolean();
 
       // try to place it recursively
-      placePointRecursive(new Point(x, y), vertical, points, length);
+      placePointRecursive(grid, new Point(x, y), vertical, points, length);
     }
 
     return points;
   }
 
-  private void placePointRecursive(Point point, boolean vertical, Stack<Point> points, int length) {
-    Cell cellType = baseGrid.getCellType(point);
+  private void placePointRecursive(Grid grid, Point point, boolean vertical, Stack<Point> points, int length) {
+    Cell cellType = grid.getCellType(point);
     if(cellType == null){
       return;
     }
-    if (cellType instanceof WaterCell && points.size() < length) {
+    if (cellType instanceof WaterCell && points.size() < length && !points.contains(point)) {
       points.push(point);
       if (vertical) {
         //try a new point in a vertical direction
-        placePointRecursive(new Point(point.x, point.y + 1), vertical, points, length);
-        placePointRecursive(new Point(point.x, point.y - 1), vertical, points, length);
+        placePointRecursive(grid, new Point(point.x, point.y + 1), vertical, points, length);
+        placePointRecursive(grid, new Point(point.x, point.y - 1), vertical, points, length);
       } else {
         //try a new point in a horizontal direction
-        placePointRecursive(new Point(point.x +1, point.y), vertical, points, length);
-        placePointRecursive(new Point(point.x -1, point.y), vertical, points, length);
+        placePointRecursive(grid, new Point(point.x +1, point.y), vertical, points, length);
+        placePointRecursive(grid, new Point(point.x -1, point.y), vertical, points, length);
       }
     }
   }

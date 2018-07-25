@@ -1,5 +1,5 @@
 package edu.bu.met.cs665.Grid;
 
-interface Cell {
+public interface Cell {
   String displayCell();
 }
