@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Stack;
 
 public class Grid implements Cloneable{
   private Cell[][] grid;
@@ -26,11 +25,11 @@ public class Grid implements Cloneable{
   }
 
 
-  public int getWidth() {
+  int getWidth() {
     return width;
   }
 
-  public int getHeight() {
+  int getHeight() {
     return height;
   }
 
@@ -50,8 +49,8 @@ public class Grid implements Cloneable{
     grid[point.x][point.y] = cell;
   }
 
-  public void addShip(Ship ship, Collection<Point> location) {
-    location.stream().forEach(point -> setCellType(point, new ShipCell()));
+  void addShip(Ship ship, Collection<Point> location) {
+    location.forEach(point -> setCellType(point, new ShipCell()));
     ships.add(ship);
   }
 
@@ -81,7 +80,7 @@ public class Grid implements Cloneable{
       stringBuilder.append(i + 1);
       stringBuilder.append(cellSeparator);
       for(int j = 0; j < width; ++j){
-        stringBuilder.append(grid[j][i].displayCell());
+        stringBuilder.append(grid[i][j].displayCell());
         stringBuilder.append(cellSeparator);
       }
       stringBuilder.append('\n');
@@ -90,5 +89,9 @@ public class Grid implements Cloneable{
     }
 
     return stringBuilder.toString();
+  }
+
+  public void removeShip(Ship ship) {
+    ships.remove(ship);
   }
 }

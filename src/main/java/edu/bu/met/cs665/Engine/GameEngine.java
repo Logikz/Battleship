@@ -19,17 +19,25 @@ public class GameEngine {
 
   public Result shoot(Point location){
     // ask opponent location
-    Player opponent = players.get((currentPlayer + 1) % players.size());
+    Player opponent = getOpponent();
     Result result = opponent.ask(location);
 
     // update player state
     players.get(currentPlayer).markGrid(location, result);
 
     // change player order
-    currentPlayer += (currentPlayer + 1) % players.size();
+    currentPlayer = calculateOpponent();
 
     // return result
     return result;
+  }
+
+  public Player getOpponent() {
+    return players.get(calculateOpponent());
+  }
+
+  private int calculateOpponent() {
+    return (currentPlayer + 1) % players.size();
   }
 
   public Player pickStartPlayer(){

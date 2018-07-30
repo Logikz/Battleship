@@ -7,6 +7,7 @@ import edu.bu.met.cs665.Grid.HitCell;
 import edu.bu.met.cs665.Grid.MissCell;
 import edu.bu.met.cs665.Grid.ShipCell;
 import java.awt.Point;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Player {
   private Grid enemyGrid;
@@ -24,12 +25,18 @@ public class Player {
     Cell cellType = myGrid.getCellType(point);
 
     if(cellType instanceof ShipCell){
+      AtomicReference<Ship> sunkShip = new AtomicReference<>();
       //figure out which ship it is to hit
       myGrid.getShips().stream().filter(ship -> ship.containsPoint(point)).forEach(ship -> {
-        if(ship.hit()){
+        if (ship.hit(point)) {
           System.out.println("You sunk my " + ship.toString());
+          sunkShip.set(ship);
         }
       });
+
+      if (sunkShip.get() != null) {
+        myGrid.removeShip(sunkShip.get());
+      }
 
       return Result.HIT;
     }

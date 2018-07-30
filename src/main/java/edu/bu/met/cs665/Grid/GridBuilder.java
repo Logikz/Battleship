@@ -39,6 +39,7 @@ public class GridBuilder {
     Random random = new Random();
 
     while(points.size() != length){
+      points.clear();
       // pick a random point
       int x = random.nextInt(grid.getWidth());
       int y = random.nextInt(grid.getHeight());
@@ -62,12 +63,12 @@ public class GridBuilder {
       points.push(point);
       if (vertical) {
         //try a new point in a vertical direction
-        placePointRecursive(grid, new Point(point.x, point.y + 1), vertical, points, length);
-        placePointRecursive(grid, new Point(point.x, point.y - 1), vertical, points, length);
+        placePointRecursive(grid, new Point(point.x, point.y + 1), true, points, length);
+        placePointRecursive(grid, new Point(point.x, point.y - 1), true, points, length);
       } else {
         //try a new point in a horizontal direction
-        placePointRecursive(grid, new Point(point.x +1, point.y), vertical, points, length);
-        placePointRecursive(grid, new Point(point.x -1, point.y), vertical, points, length);
+        placePointRecursive(grid, new Point(point.x + 1, point.y), false, points, length);
+        placePointRecursive(grid, new Point(point.x - 1, point.y), false, points, length);
       }
     }
   }

@@ -7,14 +7,11 @@ import edu.bu.met.cs665.Player.Battleship;
 import edu.bu.met.cs665.Player.Cruiser;
 import edu.bu.met.cs665.Player.Destroyer;
 import edu.bu.met.cs665.Player.Player;
-import edu.bu.met.cs665.Player.Ship;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
-public class GameManager {
+class GameManager {
 
   private static GameManager instance;
 
@@ -22,14 +19,14 @@ public class GameManager {
 
   }
 
-  public static GameManager getInstance(){
+  static GameManager getInstance() {
     if(instance == null){
       instance = new GameManager();
     }
     return instance;
   }
 
-  public void start(){
+  void start() {
     int width = 5;
     int height = 5;
     Scanner scanner = new Scanner(System.in);
@@ -84,6 +81,7 @@ public class GameManager {
       currentPlayer = gameEngine.getCurrentPlayer();
     }
 
+    System.out.println(gameEngine.getOpponent().getName() + " has won the game!");
 
   }
 
@@ -114,7 +112,9 @@ public class GameManager {
 
   // stolen from https://stackoverflow.com/questions/2979383/java-clear-the-console
   private void clearScreen() {
-      System.out.print("\033[H\033[2J");
-      System.out.flush();
+    for (int i = 0; i < 25; ++i) {
+      System.out.println();
+    }
+    System.out.flush();
   }
 }
