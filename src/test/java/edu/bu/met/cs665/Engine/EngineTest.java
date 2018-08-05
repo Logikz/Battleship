@@ -12,7 +12,7 @@ import java.awt.Point;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
-public class EngineTester {
+public class EngineTest {
 
   int TEST_WIDTH = 2;
   int TEST_HEIGHT = 2;
