@@ -1,4 +1,4 @@
-# CS665 Summer 2018 Assignment 2
+# CS665 Summer 2018 Assignment 3
 
 This is assignment 2 for CS665 Summer 2018.  The following readme can be used to guide the user 
 to install and run the application using Java.  
